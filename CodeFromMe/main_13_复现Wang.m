@@ -51,24 +51,29 @@ X = X_n(:,1:N_fit)';
 % 构建预测矩阵
 base = fun_13_baseEuqation_my(X(1:end-1, :));  % (1)构建小base向量, 但不构建最后一行的数据!
 BASE = [base*t_u, base*t_u*t_u];  % 这种构造方式并没有完全用复现思路, 仅仅进行了后向预测.
-BASE_pinv = pinv(BASE);  %
+BASE_pinv = pinv(BASE);  % 
 diff_x = BASE_pinv*(X(2:end,1)-X(1:end-1,1));  % R 做差, 再除以基向量, 这样仿佛能得到, 一个向量使得:这个向量*基向量=与现在的差距.
 diff_y = BASE_pinv*(X(2:end,2)-X(1:end-1,2));
 diff_z = BASE_pinv*(X(2:end,3)-X(1:end-1,3));
 
-% (失败!)尝试预测: (1)给一个初始点 (2)迭代预测下一个初始点
+% (获得了一般的效果)尝试预测: (1)给一个初始点 (2)迭代预测下一个初始点
 a_X = X(1,:)
 predict_history = [a_X]
 for i=1:3000
     a_base = fun_13_baseEuqation_my(a_X);
     a_BASE = [a_base*t_u, a_base*t_u*t_u];
-    next_x = a_BASE * diff_x;
-    next_y = a_BASE * diff_y;
-    next_z = a_BASE * diff_z;
+    next_x = predict_history(end, 1) + a_BASE * diff_x;  % 注意要加上之前的值
+    next_y = predict_history(end, 2) + a_BASE * diff_y;
+    next_z = predict_history(end, 3) + a_BASE * diff_z;
     % 更新数据
-    a_X = [next_x, next_y, next_z]
+    a_X = [next_x, next_y, next_z];
     predict_history = [predict_history; a_X];  % 从这个变量可以看出失败的结果.
 end
+% 画图
+figure
+plot(X(1:10000, 1),'linewidth',1);
+hold on
+plot(predict_history(:,1),'--', 'linewidth',1);
 
 % 先估算a,b,r
 DBASE = [base, 2*t_u*base];  % 原基向量对时间求导
@@ -170,5 +175,3 @@ hold on
 t_range = 10000:1:12000;
 plot(t_range, X_pred(:,1),'--', 'linewidth',1);
 xlim([9500 11000]);
-
-

@@ -5,6 +5,9 @@ x_0=-8;y_0=7;z_0=27;
 x_c=10;y_c=8/3;z_c=28;
 dt_1=0.01;n=5000;N=1;m=1;tau=0;nn=8000;
 [x,y,z]=Runge_Kutta(dt_1,nn,x_0,y_0,z_0,x_c,y_c,z_c);
+history = [x;y;z]';
+save('mat_14_history_from_xie.mat', 'history');
+
 %取时序中N:n这一段做拟合
 L1(1,:)=x(N:n);
 L1(2,:)=y(N:n);
@@ -19,7 +22,7 @@ var_1=[var(:,1:end).*(dt_1);var(:,1:end).*(dt_1).^2];
 B_1=[L41(1,1:end)-L(1,1:end);L41(2,1:end)-L(2,1:end);L41(3,1:end)-L(3,1:end);]*pinv(var_1(:,1:end)); %用前n个数据估计系数B_1
 
 subplot(2,1,1);
-x_fitting=B_1(1,:)*[var(:,1:end).*(dt_1);var(:,1:end).*(dt_1).^2]+L(1,1:end);  % R: 这里是不是直接用了真实数据? 所以甚至5000步都很强. 所以下面才是我们所理解的预测
+x_fitting=B_1(1,:)*[var(:,1:end).*(dt_1);var(:,1:end).*(dt_1).^2]+L(1,1:end);
 z_fitting=B_1(3,:)*[var(:,1:end).*(dt_1);var(:,1:end).*(dt_1).^2]+L(3,1:end);
 plot(x_fitting,'b');hold on;
 plot(L41(1,1:end),'r');
@@ -46,7 +49,7 @@ for i=1:length(x_appro)-1
         x_appro(:,i+1)=B_1*var_00+(x_appro(:,i));
 
 end
-% 新的时序与原本的时序LL进行画图对比
+% 新的时序与原本时序LL进行画图对比
 t_1=[1:(length(x_appro))];
 plot(x_appro(1,1:end),'b');hold on;
 t_2=[1:(length(L)+length(LL))];

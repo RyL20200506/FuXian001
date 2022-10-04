@@ -46,7 +46,7 @@ for i=1:length(x_appro)-1
         x_appro(:,i+1)=B_1*var_00+(x_appro(:,i));
 
 end
-% 新的时序与原本的时序LL进行画图对比
+% 新的时序与原本时序LL进行画图对比
 t_1=[1:(length(x_appro))];
 plot(x_appro(1,1:end),'b');hold on;
 t_2=[1:(length(L)+length(LL))];

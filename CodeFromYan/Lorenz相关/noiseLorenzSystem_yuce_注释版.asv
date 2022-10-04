@@ -26,6 +26,8 @@ for i=1:N
     X_n=[X_n,X_t];
 end
 
+save()
+
 B=X_n(:,1:12000);
 
 k_length=length(B);
