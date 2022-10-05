@@ -41,7 +41,6 @@ function [future_values] = fun_15_GeneralPredict_Xie(history, predict_start_poin
     for i = 1: predict_length
         a_future = future_values(i, :);
         a_base = fun_15_baseEuqation1(a_future)';
-        
         a_BASE = [a_base * t0, a_base * t0^2];
         next_values = a_future + a_BASE * diff;
         future_values = [future_values; next_values];

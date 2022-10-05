@@ -7,10 +7,27 @@ clc
 % [t,y] = ode45('fun_1_lorenz_solver',[0,2000],Y); % 求解
 
 % 获取真实轨迹 - 法2: 自定义龙格库塔
-Y = [-8, 7, 27, ones(1,26)]; 
+% Y = [-8, 7, 27, ones(1,26)]; 
+% end_point = 5000;
+% [t,y] = fun_8_RungeKutta(@fun_1_lorenz_solver1,0,0.005,end_point,Y);
+% X_n = y';
+
+Y = [-8, 7, 27, ones(1,28)]; 
 end_point = 5000;
-[t,y] = fun_8_RungeKutta(@fun_1_lorenz_solver,0,0.005,end_point,Y);
-X_n = y';
+
+% 法1
+% [t,y] = fun_8_RungeKutta(@fun_1_lorenz_solver1,0,0.01,end_point,Y);
+% X_n = y';
+
+% 法2
+[t,X_n] = ode45('fun_1_lorenz_solver1',[0,5000], Y); % 求解
+
+% 输出结果
+X_n(end,27)
+X_n(end,28)
+X_n(end,29)
+
+stop
 
 % 画出参数的运动
 figure
