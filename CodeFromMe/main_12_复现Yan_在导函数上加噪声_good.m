@@ -67,8 +67,6 @@ ylim([0 30])
 set(gca,'FontSize',14)  %是设置刻度字体大小
 % % 画出参数的运动图
 
-
-
 % figure
 % plot(result(:,25)) % a
 % hold on 
