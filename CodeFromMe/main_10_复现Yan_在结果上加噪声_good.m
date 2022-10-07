@@ -9,7 +9,7 @@ y0 = [-8,7,27];  % 真实轨迹的初始点
 interp_step = step  % step 或 step/2: #注: 不可以用step/2, 会有很严重的问题
 interp_a = real_a + interp_step;  % 插值F的开始时间  取step/2的中心差分后, 前面会少1个时刻的数据;
 interp_b = real_b - interp_step;  % 插值F的结束时间
-D = 0;
+D = 0.5;
 
 % 数据准备: 获取已知可观察轨迹
 [t,real_trajectory] = fun_8_RungeKutta(@fun_0_lorenz,real_a,interp_step,real_b,y0);  % 求解轨迹: 固定步长: 步长是拟合所用步长的一半
@@ -49,20 +49,26 @@ result(end,[25,26,27])  % 这是结果
 
 % 画出参数的运动图
 figure
-plot(result(:,25)) % a
+plot(result(:,25), 'LineWidth',1.5) % a
 hold on
-plot(result(:,26)) % b
+plot(result(:,26), 'LineWidth',1.5) % b
 hold on 
-plot(result(:,27)) % r
+plot(result(:,27), 'LineWidth',1.5) % r
 hold on
 legend('a','b','r') ;
-xlabel('\it Step \rm');
-ylabel('\it Value \rm');
+xlabel('\it Step \rm', 'fontsize',14);
+ylabel('\it Value \rm', 'fontsize',14);
 % 自定义刻度
 xtickformat('%.1f');
 ytickformat('%.1f');
 ax = gca;
 ax.XAxis.Exponent = 5;
+ylim([0 30])
+% 调整字体大小
+set(gca,'FontSize',14)  %是设置刻度字体大小
+
+% xlabel('fontsize',20);
+
 
 stop  % 下面都是调试
 

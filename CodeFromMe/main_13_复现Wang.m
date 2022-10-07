@@ -2,7 +2,8 @@
 clear
 clc
 
-rng(1)
+rng(1)  % 固定随机数种子
+
 % 数据准备 - 法1: 无噪声情形, 直接用龙格库塔生成
 % step = 0.01;  % 拟合步长为step, 真实轨迹的步长为step/2  (因为:RungeKutta会用到1/2的步长去计算)
 % t_u = step;
@@ -57,6 +58,7 @@ diff_y = BASE_pinv*(X(2:end,2)-X(1:end-1,2));
 diff_z = BASE_pinv*(X(2:end,3)-X(1:end-1,3));
 
 % (获得了一般的效果)尝试预测: (1)给一个初始点 (2)迭代预测下一个初始点
+% 结果: 大概300个点吧.
 a_X = X(1,:)
 predict_history = [a_X]
 for i=1:3000
@@ -74,6 +76,7 @@ figure
 plot(X(1:10000, 1),'linewidth',1);
 hold on
 plot(predict_history(:,1),'--', 'linewidth',1);
+xlim([1 2000]);
 
 % 先估算a,b,r
 DBASE = [base, 2*t_u*base];  % 原基向量对时间求导
@@ -174,4 +177,4 @@ plot(X_n(1,:)','linewidth',1);
 hold on
 t_range = 10000:1:12000;
 plot(t_range, X_pred(:,1),'--', 'linewidth',1);
-xlim([9500 11000]);
+xlim([9000 12000]);

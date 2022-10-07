@@ -12,9 +12,13 @@ function ret = fun_1_lorenz_solver(t,Y)
 % 公式参考:http://127.0.0.1:1111/center/call_exp_general_function/ftn.url_open_view_via_id('20220912-1853-4398-4377-000000000000')
 
 t;  % 用于验证时间调用该函数时所是用的步长, 发现并不是等步长的
-a=15;
-b=3;
-r=35;
+a=10;
+b=8/3;
+r=28;
+
+% a=15;
+% b=3;
+% r=35;
 gamma=0.001;
 alpha=3;
 beta=0.5;

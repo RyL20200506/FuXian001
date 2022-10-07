@@ -48,13 +48,38 @@ result(end,[25,26,27])  % 这是结果
 
 % 画出参数的运动图
 figure
-plot(result(:,25)) % a
+plot(result(:,25), 'LineWidth',1.5) % a
+hold on
+plot(result(:,26), 'LineWidth',1.5) % b
 hold on 
-plot(result(:,26)) % b
-hold on 
-plot(result(:,27)) % r
-hold on 
-legend('a','b','r') 
+plot(result(:,27), 'LineWidth',1.5) % r
+hold on
+legend('a','b','r') ;
+xlabel('\it Step \rm', 'fontsize',17);
+ylabel('\it Value \rm', 'fontsize',17);
+% 自定义刻度
+xtickformat('%.1f');
+ytickformat('%.1f');
+ax = gca;
+ax.XAxis.Exponent = 5;
+ylim([0 30])
+% 调整字体大小
+set(gca,'FontSize',14)  %是设置刻度字体大小
+% % 画出参数的运动图
+
+
+
+% figure
+% plot(result(:,25)) % a
+% hold on 
+% plot(result(:,26)) % b
+% hold on 
+% plot(result(:,27)) % r
+% hold on 
+% legend('a','b','r') 
 
 stop  % 下面都是调试
+
+% 画图(1): 不要遮挡有效数据
+% 画图(2): 放在左边
  
