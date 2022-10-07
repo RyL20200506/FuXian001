@@ -1,4 +1,37 @@
-% 主要功能与main12, 或者main1差不多, 我们可以先做一个对main1的模仿. 看看能不能用比较少的步数计算
+% 主要功能与main12, 或者main1差不多, 我们可以先做一个对main1的模仿(因为这还算是最精确的情况)
+% 看看能不能用比较少的步数计算
+% 缺
+
+clear
+clc
+
+% 获取真实轨迹 - 自定义龙格库塔
+Y = [-8, 7, 27, ones(1,26)]; 
+end_point = 5000;
+
+% 龙格库塔
+fun_8_RungeKutta_para()
+
+
+
+
+[t,y] = fun_8_RungeKutta(@fun_1_lorenz_solver2,0,0.005,end_point,Y);
+% [t,y] = fun_8_RungeKutta(@fun_1_lorenz_solver,0,0.005,end_point,Y);
+X_n = y';
+
+% 画出参数的运动
+figure
+plot(X_n(:,25)) % a
+hold on 
+plot(X_n(:,26)) % b
+hold on 
+plot(X_n(:,27)) % r
+hold on 
+legend('a','b','r') 
+% save('mat_1_y', 'y')
+para = X_n(end, [25,26,27])
+
+stop
 
 
 
