@@ -1,8 +1,8 @@
 % 洛伦兹混沌 求解参数的动力学
 % fun_9: 与之前的区别在于, 
-function ret = fun_17_lorenz_solver_direction_positive(t,Y, FXdot, FX)
+function ret = fun_17_lorenz_solver_direction_negtive(t,Y, FXdot, FX)
 
-direction = 1;  % 表示方向朝着正向流逝
+direction = -1;  % 表示方向朝着正向流逝
 
 % 根据t定位dot_X
 if (mod(t,1)==0)
@@ -94,11 +94,11 @@ direction * ( x*haty_e1 - hatb*hatz_e1 );  % Y(6)_hat{Y(28)}:Y(6)_hat{Y(28)}
 direction * ( x*haty_e2 - hatb*hatz_e2 + 1 );  % Y(6)_hat{Y(29)}:Y(6)_hat{Y(29)}
 
 % Delta的导数
--alpha*D_hata + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ( (haty - x) + hata * haty_hata ) ;
--alpha*D_hatb + (-2)*( dot_x - direction*( hata*(haty-x)) )* direction * ( hata * haty_hatb );
--alpha*D_hatr + (-2)*( dot_x - direction*( hata*(haty-x)) )* direction * ( hata * haty_hatr );
--alpha*D_e1 + (-2)*( dot_x - direction*( hata*(haty-x)) )* direction * ( hata * haty_e1 ) + 2*beta* e1 ;  
--alpha*D_e2 + (-2)*( dot_x - direction*( hata*(haty-x)) )* direction * ( hata * haty_e2 ) + 2*beta* e2 ;  
+-alpha*D_hata + (-2)*( -dot_x - direction*( hata*(haty-x)) ) * direction * ((haty - x) + 2*hata * haty_hata ) ;
+-alpha*D_hatb + (-2)*( -dot_x - direction*( hata*(haty-x)) ) * direction * (2* hata * haty_hatb );
+-alpha*D_hatr + (-2)*( -dot_x - direction*( hata*(haty-x)) ) * direction * (2* hata * haty_hatr );
+-alpha*D_e1 + (-2)*( -dot_x - direction*( hata*(haty-x)) ) * direction * ( hata * haty_e1 ) + 2*beta* e1 ;  
+-alpha*D_e2 + (-2)*( -dot_x - direction*( hata*(haty-x)) ) * direction * ( hata * haty_e2 ) + 2*beta* e2 ;  
 
 % 参数动力学 应该无误
 -2*gamma * D_hata;  % Y(25): Y(25)

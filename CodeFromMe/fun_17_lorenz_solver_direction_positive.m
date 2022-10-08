@@ -53,7 +53,7 @@ e2 = Y(31);
 % b=8/3;
 % r=28;
 gamma=0.0015;
-alpha=3;
+alpha_m=3;
 beta=2;
 
 % dot_x = a*(Y(2)-Y(1));  % 直接用真实的结果作为dot_x
@@ -94,11 +94,11 @@ direction * ( x*haty_e1 - hatb*hatz_e1 );  % Y(6)_hat{Y(28)}:Y(6)_hat{Y(28)}
 direction * ( x*haty_e2 - hatb*hatz_e2 + 1 );  % Y(6)_hat{Y(29)}:Y(6)_hat{Y(29)}
 
 % Delta的导数
--alpha*D_hata + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ((haty - x) + 2*hata * haty_hata ) ;
--alpha*D_hatb + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * (2* hata * haty_hatb );
--alpha*D_hatr + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * (2* hata * haty_hatr );
--alpha*D_e1 + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ( hata * haty_e1 ) + 2*beta* e1 ;  
--alpha*D_e2 + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ( hata * haty_e2 ) + 2*beta* e2 ;  
+-alpha_m*D_hata + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ((haty - x) + 2*hata * haty_hata ) ;
+-alpha_m*D_hatb + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * (2* hata * haty_hatb );
+-alpha_m*D_hatr + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * (2* hata * haty_hatr );
+-alpha_m*D_e1 + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ( hata * haty_e1 ) + 2*beta* e1 ;  
+-alpha_m*D_e2 + (-2)*( dot_x - direction*( hata*(haty-x)) ) * direction * ( hata * haty_e2 ) + 2*beta* e2 ;  
 
 % 参数动力学 应该无误
 -2*gamma * D_hata;  % Y(25): Y(25)
