@@ -34,18 +34,32 @@ F = griddedInterpolant(time_range, dot_X);
 % 开始求解
 n=floor((real_b-real_a)/step);       % 步数: 只要步数能够被dot_X覆盖, 就不会有误差
 time(1)=0;             % 时间列表
-y=[-8; 7; 27; ones(26,1)];              % 赋初值，可以是向量，但是要注意维数
-
+y = [-8; 7; 27; ones(26,1)];              % 赋初值，可以是向量，但是要注意维数
 % n=1000
 for i=1:n          % 龙格库塔方法进行数值求解
     time(i+1)=time(i)+step;
-    k1=fun_17_lorenz_solver_para(time(i),y(:,i),F, FX);
-    k2=fun_17_lorenz_solver_para(time(i)+step/2,y(:,i)+step*k1/2,F, FX);
-    k3=fun_17_lorenz_solver_para(time(i)+step/2,y(:,i)+step*k2/2,F, FX);
-    k4=fun_17_lorenz_solver_para(time(i)+step,y(:,i)+step*k3,F, FX);
+    k1=fun_17_lorenz_solver_direction_positive(time(i),y(:,i),F, FX);
+    k2=fun_17_lorenz_solver_direction_positive(time(i)+step/2,y(:,i)+step*k1/2,F, FX);
+    k3=fun_17_lorenz_solver_direction_positive(time(i)+step/2,y(:,i)+step*k2/2,F, FX);
+    k4=fun_17_lorenz_solver_direction_positive(time(i)+step,y(:,i)+step*k3,F, FX);
     y(:,i+1)=y(:,i)+step*(k1+2*k2+2*k3+k4)/6;
 end
 result = y';
+result(end,[25,26,27])  % 这是结果
+
+% 反向求解: (1)反向沿用时间
+n = floor((real_b-real_a)/step);       % 步数: 只要步数能够被dot_X覆盖, 就不会有误差
+y_n = result(end, :)';              % 沿用之前最后的结果
+% n=1000
+for i=1:n          % 龙格库塔方法进行数值求解
+    index = n - i + 1;
+    k1=fun_17_lorenz_solver_direction_negtive(time(index), y(:,i), F, FX);
+    k2=fun_17_lorenz_solver_direction_negtive(time(index) - step/2, y(:,i)+step*k1/2, F, FX);
+    k3=fun_17_lorenz_solver_direction_negtive(time(index) - step/2, y(:,i)+step*k2/2, F, FX);
+    k4=fun_17_lorenz_solver_direction_negtive(time(index) - step, y(:,i)+step*k3, F, FX);
+    y_n(:,i+1)=y_n(:,i)+step*(k1+2*k2+2*k3+k4)/6;
+end
+result = y_n';
 result(end,[25,26,27])  % 这是结果
 
 
