@@ -1,0 +1,16 @@
+% x维度的动力学方法之一
+% 写一下Wang的那篇文章的Lorenz系统的损失函数, 然后是3个都写? 因为还是有具体的函数形式的, 所以可能求解速度挺快的吧
+
+function cost = fun_3_costfun(x, tdata, ydata)
+
+A = x(1);
+lambda = x(2);
+
+sse = sum((ydata - A*exp(-lambda*tdata)).^2);
+
+
+
+
+
+
+
